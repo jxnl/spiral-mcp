@@ -18,7 +18,7 @@ load_dotenv()
 
 SPIRAL_API_KEY = os.getenv("SPIRAL_API_KEY")
 BASE_URL = "https://app.spiral.computer/api/v1"
-TIMEOUT = 30.0  # 30 seconds timeout
+TIMEOUT = 120.0  # 120 seconds timeout
 
 if not SPIRAL_API_KEY:
     raise ValueError("SPIRAL_API_KEY environment variable is required")
