@@ -20,7 +20,7 @@ source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 2. Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
 3. Create a `.env` file in the root directory and add your Spiral API key:
@@ -49,14 +49,11 @@ To test the MCP tools directly:
 python src/test_tools.py
 ```
 
-This will:
-
-1. List all available Spiral models
-2. Test the generation capability with a sample prompt
+This will run tests for all available tools to verify their functionality.
 
 ## MCP Tools
 
-The server implements two MCP tools:
+The server implements four powerful MCP tools:
 
 ### list_models
 
@@ -85,12 +82,49 @@ Example response:
 
 Generates text using a specified Spiral model.
 
-Example parameters:
+Parameters:
+- `model`: The ID or slug of the Spiral model to use
+- `prompt`: The input text to generate from
 
+Example:
 ```python
 {
     "model": "model_id_or_slug",
     "prompt": "Your input text here"
+}
+```
+
+### generate_from_file
+
+Generates text using a Spiral model with input from a file. This is useful for processing larger documents or maintaining consistent formatting.
+
+Parameters:
+- `model`: The ID or slug of the Spiral model to use
+- `file_path`: Path to the file to use as input
+
+Example:
+```python
+{
+    "model": "model_id_or_slug",
+    "file_path": "path/to/your/input.txt"
+}
+```
+
+### generate_from_url
+
+Generates text using a Spiral model with input from a URL. This tool can automatically extract article content from web pages.
+
+Parameters:
+- `model`: The ID or slug of the Spiral model to use
+- `url`: URL to fetch content from
+- `extract_article`: Whether to extract article content or use full HTML (default: true)
+
+Example:
+```python
+{
+    "model": "model_id_or_slug",
+    "url": "https://example.com/article",
+    "extract_article": true
 }
 ```
 
@@ -101,9 +135,25 @@ The server handles various error cases including:
 - Invalid API key
 - Model not found
 - Input too long
+- Rate limit exceeded
+- URL fetch failures
+- File read errors
 - Server errors
+- Request timeouts
+
+Each error returns a clear error message to help diagnose the issue.
 
 ## Environment Variables
 
 - `SPIRAL_API_KEY`: Your Spiral API key (required)
 - `PORT`: Server port (optional, defaults to 3000)
+- `TIMEOUT`: Request timeout in seconds (optional, defaults to 30)
+
+## Features
+
+- **Robust Error Handling**: Comprehensive error handling and logging for all operations
+- **Article Extraction**: Smart extraction of article content from web pages
+- **Flexible Input Sources**: Support for text, files, and URLs as input
+- **Async Operations**: All operations are asynchronous for better performance
+- **Type Safety**: Full Pydantic type validation for all parameters
+- **Logging**: Detailed debug logging for troubleshooting
