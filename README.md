@@ -1,9 +1,19 @@
 # Spiral MCP Server
 
+[![smithery badge](https://smithery.ai/badge/@jxnl/spiral-mcp)](https://smithery.ai/server/@jxnl/spiral-mcp)
 This is a Model Context Protocol (MCP) server implementation for the Spiral API using Python. It provides a standardized interface for interacting with Spiral's language models.
 
 ## Installation
 
+### Installing via Smithery
+
+To install Spiral Writing Tool for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@jxnl/spiral-mcp):
+
+```bash
+npx -y @smithery/cli install @jxnl/spiral-mcp --client claude
+```
+
+### Manual Installation
 ```bash
 mcp install src/server.py --name "spiral-writing-tool" --with pydantic --with requests --with beautifulsoup4 --with httpx
 ```

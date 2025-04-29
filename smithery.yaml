@@ -1,0 +1,29 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - spiralApiKey
+    properties:
+      spiralApiKey:
+        type: string
+        description: Your Spiral API key
+      port:
+        type: number
+        default: 3000
+        description: Port to run the server
+      timeout:
+        type: number
+        default: 120
+        description: Request timeout in seconds
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({command: 'python', args: ['src/server.py'], env: { SPIRAL_API_KEY: config.spiralApiKey, PORT: String(config.port), TIMEOUT: String(config.timeout) }})
+  exampleConfig:
+    spiralApiKey: your_api_key_here
+    port: 3000
+    timeout: 120
