@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/jxnl-spiral-mcp-badge.png)](https://mseep.ai/app/jxnl-spiral-mcp)
+
 # Spiral MCP Server
 
 This is a Model Context Protocol (MCP) server implementation for the Spiral API using Python. It provides a standardized interface for interacting with Spiral's language models.
